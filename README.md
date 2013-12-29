@@ -2,8 +2,8 @@ ltsv
 ====
 simple LTSV parser implemented by C
 
-e.g.)
------
+e.g.
+----
 	struct ltsv ltsv;
 	
 	ltsv_open(&ltsv, "sample.ltsv");
@@ -22,5 +22,5 @@ e.g.)
 
 Reference
 ---------
-[LTSV] Labeled Tab-separated Values http://ltsv.org/
-[What is ltsv?] http://d.hatena.ne.jp/naoya/20130209/1360381374 (in japanese)
+* [LTSV] Labeled Tab-separated Values http://ltsv.org/  
+* [What is ltsv?] http://d.hatena.ne.jp/naoya/20130209/1360381374 (in japanese)  
