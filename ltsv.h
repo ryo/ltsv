@@ -59,6 +59,7 @@ struct ltsv {
 #define LTSV_VALUE(ltsv)	(ltsv)->_value.str
 
 int ltsv_open(struct ltsv *, const char *);
+int ltsv_memopen(struct ltsv *, char *, size_t);
 int ltsv_close(struct ltsv *);
 int ltsv_get(struct ltsv *);
 

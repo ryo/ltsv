@@ -27,8 +27,9 @@
 #include <string.h>
 #include "ltsv.h"
 
-int
-ltsv_open(struct ltsv *ltsv, const char *file)
+
+static int
+_ltsv_open(struct ltsv *ltsv)
 {
 	memset(ltsv, 0, sizeof(*ltsv));
 
@@ -47,8 +48,32 @@ ltsv_open(struct ltsv *ltsv, const char *file)
 	ltsv->_key.alloc = LTSV_ALLOC_LENGTH;
 	ltsv->_value.alloc = LTSV_ALLOC_LENGTH;
 #endif
+	return 0;
+}
+
+int
+ltsv_open(struct ltsv *ltsv, const char *file)
+{
+	int rc;
+
+	if ((rc = _ltsv_open(ltsv)) != 0)
+		return rc;
 
 	if ((ltsv->fp = fopen(file, "r")) == NULL)
+		return -1;
+	ltsv->_flags |= LTSV_FLAGS_OPENED;
+	return 0;
+}
+
+int
+ltsv_memopen(struct ltsv *ltsv, char *buf, size_t size)
+{
+	int rc;
+
+	if ((rc = _ltsv_open(ltsv)) != 0)
+		return rc;
+
+	if ((ltsv->fp = fmemopen(buf, size, "r")) == NULL)
 		return -1;
 	ltsv->_flags |= LTSV_FLAGS_OPENED;
 	return 0;
