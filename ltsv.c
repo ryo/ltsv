@@ -29,7 +29,7 @@
 
 
 static int
-_ltsv_open(struct ltsv *ltsv)
+ltsv_init(struct ltsv *ltsv)
 {
 	memset(ltsv, 0, sizeof(*ltsv));
 
@@ -56,7 +56,7 @@ ltsv_open(struct ltsv *ltsv, const char *file)
 {
 	int rc;
 
-	if ((rc = _ltsv_open(ltsv)) != 0)
+	if ((rc = ltsv_init(ltsv)) != 0)
 		return rc;
 
 	if ((ltsv->fp = fopen(file, "r")) == NULL)
@@ -70,7 +70,7 @@ ltsv_memopen(struct ltsv *ltsv, char *buf, size_t size)
 {
 	int rc;
 
-	if ((rc = _ltsv_open(ltsv)) != 0)
+	if ((rc = ltsv_init(ltsv)) != 0)
 		return rc;
 
 	if ((ltsv->fp = fmemopen(buf, size, "r")) == NULL)
